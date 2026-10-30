@@ -1,4 +1,11 @@
-import type { AuthResponse, SessionResponse } from './types';
+import type {
+  AuthResponse,
+  BoardPage,
+  BoardScope,
+  BoardSummary,
+  DashboardResponse,
+  SessionResponse,
+} from './types';
 
 export const API_BASE_URL = (
   process.env.EXPO_PUBLIC_API_URL?.trim() || 'https://backend.sketchflow.online'
@@ -72,5 +79,28 @@ export const api = {
   logout: () =>
     request<{ success: boolean }>('/api/auth/logout', {
       method: 'POST',
+    }),
+
+  getDashboard: () => request<DashboardResponse>('/api/dashboard'),
+
+  listBoards: (
+    scope: BoardScope,
+    query = '',
+    cursor: string | null = null,
+  ) => {
+    const params = new URLSearchParams({ scope, limit: '100' });
+    if (query.trim()) {
+      params.set('q', query.trim());
+    }
+    if (cursor) {
+      params.set('cursor', cursor);
+    }
+    return request<BoardPage>(`/api/boards?${params.toString()}`);
+  },
+
+  createBoard: (name: string) =>
+    request<BoardSummary>('/api/boards', {
+      method: 'POST',
+      body: { name },
     }),
 };
