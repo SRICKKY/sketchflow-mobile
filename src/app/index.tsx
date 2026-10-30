@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { router } from 'expo-router';
 import {
   ActivityIndicator,
   Pressable,
@@ -465,6 +466,12 @@ export default function DashboardScreen() {
                             board={board}
                             index={rowIndex * columns + columnIndex}
                             key={board.id}
+                            onPress={() =>
+                              router.push({
+                                pathname: '/boards/[id]',
+                                params: { id: board.id },
+                              })
+                            }
                           />
                         ))}
                       {columns > 1 &&

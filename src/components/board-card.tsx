@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
 
 import type { BoardSummary } from '@/lib/api/types';
 
@@ -18,14 +18,21 @@ function formattedDate(value: string): string {
 export function BoardCard({
   board,
   index,
+  onPress,
 }: {
   board: BoardSummary;
   index: number;
+  onPress: () => void;
 }) {
   const color = cardColors[index % cardColors.length];
 
   return (
-    <View accessibilityLabel={`${board.name}, ${board.elementCount} elements`} style={styles.card}>
+    <Pressable
+      accessibilityLabel={`${board.name}, ${board.elementCount} elements`}
+      accessibilityRole="button"
+      onPress={onPress}
+      style={styles.card}
+    >
       <View style={[styles.preview, { backgroundColor: color }]}>
         <View style={styles.previewSheet}>
           <View style={styles.previewTitle} />
@@ -52,7 +59,7 @@ export function BoardCard({
         </View>
         <Text style={styles.updated}>{formattedDate(board.updatedAt)}</Text>
       </View>
-    </View>
+    </Pressable>
   );
 }
 

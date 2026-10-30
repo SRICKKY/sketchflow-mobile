@@ -55,6 +55,7 @@ function RootNavigator() {
         redirectTo="/login"
       >
         <Stack.Screen name="index" />
+        <Stack.Screen name="boards/[id]" />
       </Stack.Protected>
     </Stack>
   );

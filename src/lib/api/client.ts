@@ -1,9 +1,12 @@
 import type {
   AuthResponse,
+  BoardDetail,
   BoardPage,
   BoardScope,
   BoardSummary,
   DashboardResponse,
+  PatchElementsRequest,
+  PatchElementsResponse,
   SessionResponse,
 } from './types';
 
@@ -103,4 +106,16 @@ export const api = {
       method: 'POST',
       body: { name },
     }),
+
+  getBoardDetail: (boardId: string) =>
+    request<BoardDetail>(`/api/boards/${encodeURIComponent(boardId)}/detail`),
+
+  patchBoardElements: (boardId: string, body: PatchElementsRequest) =>
+    request<PatchElementsResponse>(
+      `/api/boards/${encodeURIComponent(boardId)}/elements`,
+      {
+        method: 'PATCH',
+        body,
+      },
+    ),
 };

@@ -30,6 +30,66 @@ export interface BoardSummary {
   elementCount: number;
 }
 
+export interface CanvasElement {
+  id: string;
+  type:
+    | 'rectangle'
+    | 'ellipse'
+    | 'diamond'
+    | 'line'
+    | 'arrow'
+    | 'freehand'
+    | 'text'
+    | 'image'
+    | 'note'
+    | 'frame'
+    | 'embed';
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+  rotation: number;
+  strokeColor: string;
+  backgroundColor: string;
+  strokeWidth: number;
+  opacity: number;
+  fillStyle: 'solid' | 'hachure' | 'cross-hatch' | 'none';
+  strokeStyle: 'solid' | 'dashed' | 'dotted';
+  roughness: number;
+  seed: number;
+  groupId: string | null;
+  frameId?: string | null;
+  zIndex: number;
+  locked: boolean;
+  text?: string;
+  fontSize?: number;
+  [key: string]: unknown;
+}
+
+export interface BoardDetail {
+  id: string;
+  name: string;
+  workspaceName: string | null;
+  ownerId: string;
+  role: BoardRole;
+  updatedAt: string;
+  createdAt: string;
+  elements: CanvasElement[];
+  presentation?: unknown;
+  revision: number;
+}
+
+export interface PatchElementsRequest {
+  baseRevision: number;
+  clientOperationId: string;
+  upserts: CanvasElement[];
+  deletedIds: string[];
+}
+
+export interface PatchElementsResponse {
+  revision: number;
+}
+
 export interface BoardPage {
   items: BoardSummary[];
   nextCursor: string | null;
