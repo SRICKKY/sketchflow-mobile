@@ -11,7 +11,7 @@ import type {
 } from './types';
 
 export const API_BASE_URL = (
-  process.env.EXPO_PUBLIC_API_URL?.trim() || 'https://backend.sketchflow.online'
+  process.env.EXPO_PUBLIC_API_URL?.trim() || 'http://localhost:8080'
 ).replace(/\/+$/, '');
 
 export class ApiError extends Error {

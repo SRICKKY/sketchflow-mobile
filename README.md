@@ -15,13 +15,15 @@ The app consumes the Rust backend. Copy `.env.example` to `.env` and set
 `EXPO_PUBLIC_API_URL` to the backend origin reachable from the device:
 
 ```env
-EXPO_PUBLIC_API_URL=https://backend.sketchflow.online
+EXPO_PUBLIC_API_URL=http://localhost:8080
 ```
 
 `EXPO_PUBLIC_` values are included in the app bundle and must not contain
-credentials. Native iOS and Android apps block plain HTTP by default; use an
-HTTPS development tunnel when testing a local backend instead of weakening
-the app's transport security.
+credentials. `localhost` works when the app and backend run on the same host.
+For an Android emulator, use `http://10.0.2.2:8080`; for a physical tablet, use
+the computer's LAN IP and make sure both devices are on the same network. Use
+local HTTP only for development; native standalone builds may block it unless
+configured for development, and production builds should use HTTPS.
 
 The current sign-in flow uses the backend's `sketchflow_session` cookie. API
 requests include credentials; the backend must be configured for the production
