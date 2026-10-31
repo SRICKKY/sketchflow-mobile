@@ -3,6 +3,7 @@ import { StatusBar } from 'expo-status-bar';
 import { ActivityIndicator, Pressable, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
+import { colors } from '@/theme/colors';
 import { AuthProvider, useAuth } from '@/providers/auth-provider';
 
 export default function RootLayout() {
@@ -22,7 +23,7 @@ function RootNavigator() {
   if (status === 'loading') {
     return (
       <View style={styles.stateScreen}>
-        <ActivityIndicator color="#5563dc" size="large" />
+        <ActivityIndicator color={colors.accent} size="large" />
         <Text style={styles.stateText}>Connecting to SketchFlow…</Text>
       </View>
     );
@@ -66,17 +67,17 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#f5f7fb',
+    backgroundColor: colors.background,
     padding: 32,
   },
   stateText: {
     marginTop: 16,
-    color: '#667085',
+    color: colors.body,
     fontSize: 16,
     textAlign: 'center',
   },
   errorTitle: {
-    color: '#182230',
+    color: colors.ink,
     fontSize: 24,
     fontWeight: '700',
     textAlign: 'center',
@@ -84,12 +85,12 @@ const styles = StyleSheet.create({
   retryButton: {
     marginTop: 24,
     borderRadius: 12,
-    backgroundColor: '#5563dc',
+    backgroundColor: colors.accent,
     paddingHorizontal: 24,
     paddingVertical: 14,
   },
   retryText: {
-    color: '#ffffff',
+    color: colors.panel,
     fontSize: 15,
     fontWeight: '700',
   },

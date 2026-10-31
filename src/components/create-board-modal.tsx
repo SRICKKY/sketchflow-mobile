@@ -11,6 +11,7 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { ApiError } from '@/lib/api/client';
+import { colors } from '@/theme/colors';
 
 export function CreateBoardModal({
   visible,
@@ -91,7 +92,7 @@ export function CreateBoardModal({
             }}
             onSubmitEditing={() => void submit()}
             placeholder="Untitled board"
-            placeholderTextColor="#98a2b3"
+            placeholderTextColor={colors.muted}
             returnKeyType="done"
             style={styles.input}
             value={name}
@@ -114,7 +115,7 @@ export function CreateBoardModal({
               style={[styles.createButton, isSaving && styles.disabled]}
             >
               {isSaving ? (
-                <ActivityIndicator color="#ffffff" />
+                <ActivityIndicator color={colors.panel} />
               ) : (
                 <Text style={styles.createText}>Create board</Text>
               )}
@@ -131,16 +132,16 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'rgba(19, 28, 48, 0.48)',
+    backgroundColor: 'rgba(0, 32, 29, 0.48)',
     padding: 24,
   },
   dialog: {
     width: '100%',
     maxWidth: 480,
     borderRadius: 24,
-    backgroundColor: '#ffffff',
+    backgroundColor: colors.panel,
     padding: 28,
-    shadowColor: '#101828',
+    shadowColor: colors.shadow,
     shadowOffset: { width: 0, height: 18 },
     shadowOpacity: 0.18,
     shadowRadius: 30,
@@ -157,10 +158,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 14,
-    backgroundColor: '#eef0ff',
+    backgroundColor: colors.accentSoft,
   },
   icon: {
-    color: '#5563dc',
+    color: colors.accent,
     fontSize: 28,
     fontWeight: '400',
     lineHeight: 32,
@@ -171,52 +172,52 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 18,
-    backgroundColor: '#f2f4f7',
+    backgroundColor: colors.subtle,
   },
   closeText: {
-    color: '#667085',
+    color: colors.body,
     fontSize: 23,
     lineHeight: 26,
   },
   title: {
     marginTop: 23,
-    color: '#202b4a',
+    color: colors.ink,
     fontSize: 22,
     fontWeight: '700',
     letterSpacing: -0.5,
   },
   subtitle: {
     marginTop: 8,
-    color: '#667085',
+    color: colors.body,
     fontSize: 14,
     lineHeight: 21,
   },
   label: {
     marginTop: 24,
     marginBottom: 8,
-    color: '#344054',
+    color: colors.body,
     fontSize: 13,
     fontWeight: '700',
   },
   input: {
     minHeight: 52,
     borderWidth: 1,
-    borderColor: '#d0d5dd',
+    borderColor: colors.lineStrong,
     borderRadius: 13,
     paddingHorizontal: 15,
-    color: '#182230',
+    color: colors.ink,
     fontSize: 15,
   },
   errorBox: {
     marginTop: 14,
     borderWidth: 1,
-    borderColor: '#fecdca',
+    borderColor: colors.errorBorder,
     borderRadius: 10,
-    backgroundColor: '#fff6f5',
+    backgroundColor: colors.errorBackground,
     padding: 12,
   },
   errorText: {
-    color: '#b42318',
+    color: colors.danger,
     fontSize: 13,
     lineHeight: 19,
   },
@@ -232,7 +233,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 18,
   },
   cancelText: {
-    color: '#475467',
+    color: colors.body,
     fontSize: 14,
     fontWeight: '700',
   },
@@ -243,14 +244,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginLeft: 8,
     borderRadius: 12,
-    backgroundColor: '#5563dc',
+    backgroundColor: colors.accent,
     paddingHorizontal: 17,
   },
   disabled: {
     opacity: 0.7,
   },
   createText: {
-    color: '#ffffff',
+    color: colors.panel,
     fontSize: 14,
     fontWeight: '700',
   },

@@ -13,6 +13,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { ApiError, api } from '@/lib/api/client';
 import type { BoardDetail, CanvasElement } from '@/lib/api/types';
+import { colors } from '@/theme/colors';
 
 type ShapeTool = 'rectangle' | 'ellipse';
 type CanvasTool = ShapeTool | 'select';
@@ -43,8 +44,8 @@ function createShape(
     type,
     ...bounds,
     rotation: 0,
-    strokeColor: '#5563dc',
-    backgroundColor: type === 'rectangle' ? '#e9ecff' : '#e5f6ef',
+    strokeColor: colors.accent,
+    backgroundColor: type === 'rectangle' ? colors.accentSoft : colors.soft,
     strokeWidth: 2,
     opacity: 1,
     fillStyle: 'solid',
@@ -238,7 +239,7 @@ export default function BoardEditorScreen() {
           ]}
         >
           {isSaving ? (
-            <ActivityIndicator color="#ffffff" size="small" />
+            <ActivityIndicator color={colors.panel} size="small" />
           ) : (
             <Text style={styles.saveButtonText}>
               {pendingElements.length ? 'Save changes' : 'Saved'}
@@ -249,7 +250,7 @@ export default function BoardEditorScreen() {
 
       {isLoading ? (
         <View style={styles.state}>
-          <ActivityIndicator color="#5563dc" size="large" />
+          <ActivityIndicator color={colors.accent} size="large" />
           <Text style={styles.stateText}>Opening your canvas…</Text>
         </View>
       ) : error && !board ? (
@@ -400,7 +401,7 @@ function CanvasItem({
     width: Math.max(1, element.width * scaleX),
     height: Math.max(1, element.height * scaleY),
     borderWidth: Math.max(1, element.strokeWidth * scaleX),
-    borderColor: element.strokeColor || '#344054',
+    borderColor: element.strokeColor || colors.body,
     backgroundColor:
       element.fillStyle === 'none' ? 'transparent' : element.backgroundColor || 'transparent',
     opacity: element.opacity,
@@ -425,15 +426,15 @@ function CanvasItem({
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: '#f7f8fc',
+    backgroundColor: colors.background,
   },
   header: {
     minHeight: 76,
     flexDirection: 'row',
     alignItems: 'center',
     borderBottomWidth: 1,
-    borderBottomColor: '#e9ecf2',
-    backgroundColor: '#ffffff',
+    borderBottomColor: colors.line,
+    backgroundColor: colors.panel,
     paddingHorizontal: 22,
   },
   backButton: {
@@ -442,7 +443,7 @@ const styles = StyleSheet.create({
     paddingRight: 18,
   },
   backText: {
-    color: '#5563dc',
+    color: colors.accent,
     fontSize: 15,
     fontWeight: '700',
   },
@@ -451,13 +452,13 @@ const styles = StyleSheet.create({
     minWidth: 0,
   },
   boardName: {
-    color: '#202b4a',
+    color: colors.ink,
     fontSize: 18,
     fontWeight: '800',
   },
   boardRole: {
     marginTop: 3,
-    color: '#98a2b3',
+    color: colors.muted,
     fontSize: 10,
     fontWeight: '700',
     letterSpacing: 0.5,
@@ -469,11 +470,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginLeft: 12,
     borderRadius: 12,
-    backgroundColor: '#5563dc',
+    backgroundColor: colors.accent,
     paddingHorizontal: 14,
   },
   saveButtonText: {
-    color: '#ffffff',
+    color: colors.panel,
     fontSize: 13,
     fontWeight: '700',
   },
@@ -488,23 +489,23 @@ const styles = StyleSheet.create({
   },
   stateText: {
     marginTop: 14,
-    color: '#667085',
+    color: colors.body,
     fontSize: 15,
   },
   errorText: {
-    color: '#b42318',
+    color: colors.danger,
     fontSize: 14,
     textAlign: 'center',
   },
   retryButton: {
     marginTop: 16,
     borderRadius: 10,
-    backgroundColor: '#5563dc',
+    backgroundColor: colors.accent,
     paddingHorizontal: 18,
     paddingVertical: 12,
   },
   retryText: {
-    color: '#ffffff',
+    color: colors.panel,
     fontSize: 14,
     fontWeight: '700',
   },
@@ -516,7 +517,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    backgroundColor: '#ffffff',
+    backgroundColor: colors.panel,
     paddingHorizontal: 22,
     paddingVertical: 10,
   },
@@ -529,27 +530,27 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginRight: 7,
     borderWidth: 1,
-    borderColor: '#e4e7ec',
+    borderColor: colors.line,
     borderRadius: 10,
-    backgroundColor: '#ffffff',
+    backgroundColor: colors.panel,
     paddingHorizontal: 13,
   },
   toolButtonActive: {
-    borderColor: '#c7cdfd',
-    backgroundColor: '#f0f2ff',
+    borderColor: colors.lineStrong,
+    backgroundColor: colors.accentSoft,
   },
   toolText: {
-    color: '#475467',
+    color: colors.body,
     fontSize: 12,
     fontWeight: '700',
   },
   toolTextActive: {
-    color: '#4654c8',
+    color: colors.accent,
   },
   canvasHint: {
     flex: 1,
     marginLeft: 12,
-    color: '#98a2b3',
+    color: colors.muted,
     fontSize: 12,
     textAlign: 'right',
   },
@@ -564,13 +565,13 @@ const styles = StyleSheet.create({
     maxWidth: 1440,
     overflow: 'hidden',
     borderWidth: 1,
-    borderColor: '#e4e7ec',
+    borderColor: colors.line,
     borderRadius: 14,
-    backgroundColor: '#ffffff',
+    backgroundColor: colors.panel,
   },
   canvasGrid: {
     ...StyleSheet.absoluteFill,
-    backgroundColor: '#ffffff',
+    backgroundColor: colors.panel,
   },
   ellipse: {
     borderRadius: 1000,
@@ -580,7 +581,7 @@ const styles = StyleSheet.create({
     padding: 6,
   },
   canvasText: {
-    color: '#344054',
+    color: colors.body,
     fontSize: 12,
   },
   drawingHint: {
@@ -588,12 +589,12 @@ const styles = StyleSheet.create({
     right: 12,
     bottom: 12,
     borderRadius: 8,
-    backgroundColor: 'rgba(32,43,74,0.84)',
+    backgroundColor: 'rgba(0,32,29,0.84)',
     paddingHorizontal: 10,
     paddingVertical: 7,
   },
   drawingHintText: {
-    color: '#ffffff',
+    color: colors.panel,
     fontSize: 11,
     fontWeight: '600',
   },
@@ -603,8 +604,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     borderTopWidth: 1,
-    borderTopColor: '#e9ecf2',
-    backgroundColor: '#ffffff',
+    borderTopColor: colors.line,
+    backgroundColor: colors.panel,
     paddingHorizontal: 22,
   },
   statusGroup: {
@@ -616,13 +617,13 @@ const styles = StyleSheet.create({
     height: 8,
     marginRight: 8,
     borderRadius: 4,
-    backgroundColor: '#12b76a',
+    backgroundColor: colors.success,
   },
   statusDotPending: {
-    backgroundColor: '#f79009',
+    backgroundColor: colors.warning,
   },
   statusText: {
-    color: '#667085',
+    color: colors.body,
     fontSize: 12,
   },
   errorRow: {
@@ -634,13 +635,13 @@ const styles = StyleSheet.create({
   },
   inlineError: {
     flexShrink: 1,
-    color: '#b42318',
+    color: colors.danger,
     fontSize: 11,
     textAlign: 'right',
   },
   reloadText: {
     marginLeft: 10,
-    color: '#5563dc',
+    color: colors.accent,
     fontSize: 12,
     fontWeight: '700',
   },

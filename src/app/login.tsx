@@ -14,8 +14,10 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import { BrandMark } from '@/components/brand-mark';
 import { ApiError } from '@/lib/api/client';
 import { useAuth } from '@/providers/auth-provider';
+import { colors } from '@/theme/colors';
 
 export default function LoginScreen() {
   const { signIn, register } = useAuth();
@@ -82,9 +84,7 @@ export default function LoginScreen() {
             ]}
           >
             <View style={[styles.brandPanel, isTabletLayout && styles.brandPanelTablet]}>
-              <View style={styles.brandMark}>
-                <Text style={styles.brandMarkText}>S</Text>
-              </View>
+              <BrandMark size={42} />
               <View>
                 <Text style={styles.brandName}>SketchFlow</Text>
                 <Text style={styles.brandEyebrow}>THINK IT THROUGH</Text>
@@ -124,7 +124,7 @@ export default function LoginScreen() {
                     autoComplete="name"
                     onChangeText={setName}
                     placeholder="Your name"
-                    placeholderTextColor="#98a2b3"
+                    placeholderTextColor={colors.muted}
                     returnKeyType="next"
                     style={styles.input}
                     value={name}
@@ -141,7 +141,7 @@ export default function LoginScreen() {
                   keyboardType="email-address"
                   onChangeText={setEmail}
                   placeholder="you@example.com"
-                  placeholderTextColor="#98a2b3"
+                  placeholderTextColor={colors.muted}
                   returnKeyType="next"
                   style={styles.input}
                   textContentType="emailAddress"
@@ -157,7 +157,7 @@ export default function LoginScreen() {
                   onChangeText={setPassword}
                   onSubmitEditing={() => void submit()}
                   placeholder="At least 8 characters"
-                  placeholderTextColor="#98a2b3"
+                  placeholderTextColor={colors.muted}
                   returnKeyType="go"
                   secureTextEntry
                   style={styles.input}
@@ -183,7 +183,7 @@ export default function LoginScreen() {
                 ]}
               >
                 {isSubmitting ? (
-                  <ActivityIndicator color="#ffffff" />
+                  <ActivityIndicator color={colors.panel} />
                 ) : (
                   <Text style={styles.submitButtonText}>
                     {isRegistering ? 'Create account' : 'Sign in'}
@@ -219,7 +219,7 @@ export default function LoginScreen() {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: '#f4f6fb',
+    backgroundColor: colors.background,
   },
   keyboard: {
     flex: 1,
@@ -235,8 +235,8 @@ const styles = StyleSheet.create({
     width: '100%',
     overflow: 'hidden',
     borderRadius: 28,
-    backgroundColor: '#ffffff',
-    shadowColor: '#152346',
+    backgroundColor: colors.panel,
+    shadowColor: colors.shadow,
     shadowOffset: { width: 0, height: 20 },
     shadowOpacity: 0.1,
     shadowRadius: 36,
@@ -248,7 +248,7 @@ const styles = StyleSheet.create({
   brandPanel: {
     minHeight: 230,
     justifyContent: 'space-between',
-    backgroundColor: '#202b4a',
+    backgroundColor: colors.deepTeal,
     padding: 28,
   },
   brandPanelTablet: {
@@ -256,28 +256,15 @@ const styles = StyleSheet.create({
     minHeight: 580,
     padding: 36,
   },
-  brandMark: {
-    width: 42,
-    height: 42,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 14,
-    backgroundColor: '#c9f27a',
-  },
-  brandMarkText: {
-    color: '#202b4a',
-    fontSize: 24,
-    fontWeight: '900',
-  },
   brandName: {
     marginTop: 14,
-    color: '#ffffff',
+    color: colors.panel,
     fontSize: 18,
     fontWeight: '700',
   },
   brandEyebrow: {
     marginTop: 4,
-    color: '#aeb8d0',
+    color: colors.deepTealText,
     fontSize: 10,
     fontWeight: '700',
     letterSpacing: 1.8,
@@ -287,7 +274,7 @@ const styles = StyleSheet.create({
   },
   brandHeadline: {
     maxWidth: 340,
-    color: '#ffffff',
+    color: colors.panel,
     fontSize: 30,
     fontWeight: '700',
     letterSpacing: -0.8,
@@ -296,7 +283,7 @@ const styles = StyleSheet.create({
   brandDescription: {
     maxWidth: 340,
     marginTop: 14,
-    color: '#c4cce0',
+    color: colors.deepTealText,
     fontSize: 15,
     lineHeight: 23,
   },
@@ -309,11 +296,11 @@ const styles = StyleSheet.create({
     width: 8,
     height: 8,
     borderRadius: 4,
-    backgroundColor: '#c9f27a',
+    backgroundColor: colors.highlight,
   },
   brandFooterText: {
     marginLeft: 9,
-    color: '#d9dfed',
+    color: colors.deepTealText,
     fontSize: 13,
   },
   formPanel: {
@@ -321,21 +308,21 @@ const styles = StyleSheet.create({
     paddingVertical: 36,
   },
   formEyebrow: {
-    color: '#6975d5',
+    color: colors.accentStrong,
     fontSize: 11,
     fontWeight: '800',
     letterSpacing: 1.8,
   },
   title: {
     marginTop: 10,
-    color: '#182230',
+    color: colors.ink,
     fontSize: 28,
     fontWeight: '700',
     letterSpacing: -0.8,
   },
   subtitle: {
     marginTop: 8,
-    color: '#667085',
+    color: colors.body,
     fontSize: 15,
     lineHeight: 22,
   },
@@ -344,30 +331,30 @@ const styles = StyleSheet.create({
   },
   label: {
     marginBottom: 8,
-    color: '#344054',
+    color: colors.body,
     fontSize: 13,
     fontWeight: '700',
   },
   input: {
     minHeight: 52,
     borderWidth: 1,
-    borderColor: '#d0d5dd',
+    borderColor: colors.lineStrong,
     borderRadius: 13,
-    backgroundColor: '#ffffff',
+    backgroundColor: colors.panel,
     paddingHorizontal: 15,
-    color: '#182230',
+    color: colors.ink,
     fontSize: 15,
   },
   errorBox: {
     marginTop: 18,
     borderWidth: 1,
-    borderColor: '#fecdca',
+    borderColor: colors.errorBorder,
     borderRadius: 12,
-    backgroundColor: '#fff6f5',
+    backgroundColor: colors.errorBackground,
     padding: 13,
   },
   errorText: {
-    color: '#b42318',
+    color: colors.danger,
     fontSize: 14,
     lineHeight: 20,
   },
@@ -377,16 +364,16 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginTop: 26,
     borderRadius: 14,
-    backgroundColor: '#5563dc',
+    backgroundColor: colors.accent,
   },
   submitButtonPressed: {
-    backgroundColor: '#4452c2',
+    backgroundColor: colors.accentHover,
   },
   submitButtonDisabled: {
     opacity: 0.7,
   },
   submitButtonText: {
-    color: '#ffffff',
+    color: colors.panel,
     fontSize: 15,
     fontWeight: '700',
   },
@@ -398,18 +385,18 @@ const styles = StyleSheet.create({
     marginTop: 22,
   },
   switchText: {
-    color: '#667085',
+    color: colors.body,
     fontSize: 14,
   },
   switchAction: {
     marginLeft: 6,
-    color: '#4d5bd0',
+    color: colors.accent,
     fontSize: 14,
     fontWeight: '700',
   },
   legal: {
     marginTop: 18,
-    color: '#98a2b3',
+    color: colors.muted,
     fontSize: 12,
     textAlign: 'center',
   },

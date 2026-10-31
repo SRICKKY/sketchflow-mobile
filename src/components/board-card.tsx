@@ -1,8 +1,14 @@
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 
 import type { BoardSummary } from '@/lib/api/types';
+import { colors } from '@/theme/colors';
 
-const cardColors = ['#eaf0ff', '#e7f7f2', '#fff2df', '#f2eaff'];
+const cardColors = [
+  colors.accentSoft,
+  colors.soft,
+  colors.canvasYellow,
+  colors.canvasPink,
+];
 
 function formattedDate(value: string): string {
   const date = new Date(value);
@@ -69,9 +75,9 @@ const styles = StyleSheet.create({
     minWidth: 0,
     overflow: 'hidden',
     borderWidth: 1,
-    borderColor: '#e8ebf2',
+    borderColor: colors.line,
     borderRadius: 18,
-    backgroundColor: '#ffffff',
+    backgroundColor: colors.panel,
   },
   preview: {
     height: 156,
@@ -84,9 +90,9 @@ const styles = StyleSheet.create({
     height: '100%',
     justifyContent: 'center',
     borderRadius: 8,
-    backgroundColor: '#ffffff',
+    backgroundColor: colors.panel,
     paddingHorizontal: 15,
-    shadowColor: '#17233d',
+    shadowColor: colors.shadow,
     shadowOffset: { width: 0, height: 5 },
     shadowOpacity: 0.1,
     shadowRadius: 12,
@@ -96,7 +102,7 @@ const styles = StyleSheet.create({
     width: '48%',
     height: 7,
     borderRadius: 4,
-    backgroundColor: '#293552',
+    backgroundColor: colors.deepTeal,
   },
   previewRow: {
     flexDirection: 'row',
@@ -106,28 +112,28 @@ const styles = StyleSheet.create({
     width: 31,
     height: 24,
     borderRadius: 5,
-    backgroundColor: '#cdd5ff',
+    backgroundColor: colors.highlight,
   },
   previewBlockSmall: {
     width: 22,
     height: 24,
     marginLeft: 8,
     borderRadius: 5,
-    backgroundColor: '#d8efe8',
+    backgroundColor: colors.accentSoft,
   },
   previewLine: {
     width: '86%',
     height: 4,
     marginTop: 12,
     borderRadius: 2,
-    backgroundColor: '#e8ebf2',
+    backgroundColor: colors.line,
   },
   previewLineShort: {
     width: '58%',
     height: 4,
     marginTop: 6,
     borderRadius: 2,
-    backgroundColor: '#e8ebf2',
+    backgroundColor: colors.line,
   },
   elementCount: {
     position: 'absolute',
@@ -139,7 +145,7 @@ const styles = StyleSheet.create({
     paddingVertical: 6,
   },
   elementCountText: {
-    color: '#475467',
+    color: colors.body,
     fontSize: 11,
     fontWeight: '700',
   },
@@ -153,26 +159,26 @@ const styles = StyleSheet.create({
   },
   name: {
     flex: 1,
-    color: '#202b4a',
+    color: colors.ink,
     fontSize: 15,
     fontWeight: '700',
   },
   roleBadge: {
     marginLeft: 8,
     borderRadius: 8,
-    backgroundColor: '#f2f4f7',
+    backgroundColor: colors.subtle,
     paddingHorizontal: 7,
     paddingVertical: 4,
   },
   roleText: {
-    color: '#667085',
+    color: colors.body,
     fontSize: 9,
     fontWeight: '800',
     letterSpacing: 0.4,
   },
   updated: {
     marginTop: 7,
-    color: '#98a2b3',
+    color: colors.muted,
     fontSize: 12,
   },
 });

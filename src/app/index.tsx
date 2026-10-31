@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import { BrandMark } from '@/components/brand-mark';
 import { BoardCard } from '@/components/board-card';
 import { CreateBoardModal } from '@/components/create-board-modal';
 import { ApiError, api } from '@/lib/api/client';
@@ -22,6 +23,7 @@ import type {
   DashboardResponse,
 } from '@/lib/api/types';
 import { useAuth } from '@/providers/auth-provider';
+import { colors } from '@/theme/colors';
 
 function errorMessage(error: unknown): string {
   if (error instanceof ApiError) {
@@ -223,9 +225,7 @@ export default function DashboardScreen() {
         {width >= 1000 ? (
           <View style={styles.sidebar}>
             <View style={styles.brandRow}>
-              <View style={styles.brandMark}>
-                <Text style={styles.brandMarkText}>S</Text>
-              </View>
+              <BrandMark size={34} />
               <Text style={styles.brandName}>SketchFlow</Text>
             </View>
             <Text style={styles.sidebarLabel}>YOUR SPACE</Text>
@@ -302,9 +302,7 @@ export default function DashboardScreen() {
           <View style={styles.topbar}>
             {width < 1000 ? (
               <View style={styles.brandRow}>
-                <View style={styles.brandMark}>
-                  <Text style={styles.brandMarkText}>S</Text>
-                </View>
+                <BrandMark size={34} />
                 <Text style={styles.brandName}>SketchFlow</Text>
               </View>
             ) : (
@@ -332,10 +330,10 @@ export default function DashboardScreen() {
             contentContainerStyle={styles.listContent}
             refreshControl={
               <RefreshControl
-                colors={['#5563dc']}
+                colors={[colors.accent]}
                 onRefresh={() => void refresh()}
                 refreshing={isRefreshing}
-                tintColor="#5563dc"
+                tintColor={colors.accent}
               />
             }
           >
@@ -392,7 +390,7 @@ export default function DashboardScreen() {
                   onChangeText={setSearch}
                   onSubmitEditing={applySearch}
                   placeholder="Search boards"
-                  placeholderTextColor="#98a2b3"
+                  placeholderTextColor={colors.muted}
                   returnKeyType="search"
                   style={styles.searchInput}
                   value={search}
@@ -420,7 +418,7 @@ export default function DashboardScreen() {
             ) : null}
             {isLoading && boards.length === 0 ? (
               <View style={styles.loading}>
-                <ActivityIndicator color="#5563dc" size="large" />
+                <ActivityIndicator color={colors.accent} size="large" />
                 <Text style={styles.loadingText}>Loading your boards…</Text>
               </View>
             ) : null}
@@ -506,7 +504,7 @@ export default function DashboardScreen() {
                 style={styles.loadMoreButton}
               >
                 {isLoadingMore ? (
-                  <ActivityIndicator color="#5563dc" />
+                  <ActivityIndicator color={colors.accent} />
                 ) : (
                   <Text style={styles.loadMoreText}>Load more boards</Text>
                 )}
@@ -549,7 +547,7 @@ function ScopeButton({
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: '#f7f8fc',
+    backgroundColor: colors.background,
   },
   appShell: {
     flex: 1,
@@ -558,8 +556,8 @@ const styles = StyleSheet.create({
   sidebar: {
     width: 244,
     borderRightWidth: 1,
-    borderRightColor: '#e9ecf2',
-    backgroundColor: '#ffffff',
+    borderRightColor: colors.line,
+    backgroundColor: colors.panel,
     paddingHorizontal: 20,
     paddingTop: 22,
     paddingBottom: 14,
@@ -568,22 +566,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
-  brandMark: {
-    width: 34,
-    height: 34,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 11,
-    backgroundColor: '#202b4a',
-  },
-  brandMarkText: {
-    color: '#c9f27a',
-    fontSize: 20,
-    fontWeight: '900',
-  },
   brandName: {
     marginLeft: 10,
-    color: '#202b4a',
+    color: colors.ink,
     fontSize: 17,
     fontWeight: '800',
     letterSpacing: -0.3,
@@ -591,7 +576,7 @@ const styles = StyleSheet.create({
   sidebarLabel: {
     marginTop: 42,
     marginBottom: 12,
-    color: '#98a2b3',
+    color: colors.muted,
     fontSize: 10,
     fontWeight: '800',
     letterSpacing: 1.4,
@@ -605,21 +590,21 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
   },
   navItemActive: {
-    backgroundColor: '#f0f2ff',
+    backgroundColor: colors.accentSoft,
   },
   navIcon: {
     width: 25,
-    color: '#667085',
+    color: colors.body,
     fontSize: 17,
     fontWeight: '700',
   },
   navText: {
-    color: '#667085',
+    color: colors.body,
     fontSize: 14,
     fontWeight: '600',
   },
   navTextActive: {
-    color: '#4654c8',
+    color: colors.accent,
     fontWeight: '700',
   },
   sidebarBottom: {
@@ -631,11 +616,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginBottom: 20,
     borderRadius: 12,
-    backgroundColor: '#202b4a',
+    backgroundColor: colors.ink,
     paddingHorizontal: 14,
   },
   sidebarCreateText: {
-    color: '#ffffff',
+    color: colors.panel,
     fontSize: 14,
     fontWeight: '700',
   },
@@ -643,7 +628,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     borderTopWidth: 1,
-    borderTopColor: '#eef0f4',
+    borderTopColor: colors.line,
     paddingTop: 16,
   },
   avatar: {
@@ -652,10 +637,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 18,
-    backgroundColor: '#e9ecff',
+    backgroundColor: colors.accentSoft,
   },
   avatarText: {
-    color: '#4d5bd0',
+    color: colors.accent,
     fontSize: 14,
     fontWeight: '800',
   },
@@ -665,13 +650,13 @@ const styles = StyleSheet.create({
     marginLeft: 9,
   },
   profileName: {
-    color: '#344054',
+    color: colors.body,
     fontSize: 12,
     fontWeight: '700',
   },
   profileEmail: {
     marginTop: 3,
-    color: '#98a2b3',
+    color: colors.muted,
     fontSize: 10,
   },
   signOutIcon: {
@@ -682,7 +667,7 @@ const styles = StyleSheet.create({
     marginLeft: 4,
   },
   signOutIconText: {
-    color: '#667085',
+    color: colors.body,
     fontSize: 19,
   },
   main: {
@@ -695,12 +680,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     borderBottomWidth: 1,
-    borderBottomColor: '#e9ecf2',
-    backgroundColor: '#ffffff',
+    borderBottomColor: colors.line,
+    backgroundColor: colors.panel,
     paddingHorizontal: 28,
   },
   topbarHint: {
-    color: '#667085',
+    color: colors.body,
     fontSize: 13,
   },
   topbarActions: {
@@ -713,7 +698,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   topbarSignOutText: {
-    color: '#667085',
+    color: colors.body,
     fontSize: 13,
     fontWeight: '600',
   },
@@ -733,21 +718,21 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   eyebrow: {
-    color: '#6975d5',
+    color: colors.accentStrong,
     fontSize: 10,
     fontWeight: '800',
     letterSpacing: 1.7,
   },
   heading: {
     marginTop: 8,
-    color: '#202b4a',
+    color: colors.ink,
     fontSize: 32,
     fontWeight: '800',
     letterSpacing: -1,
   },
   headingSubtitle: {
     marginTop: 8,
-    color: '#667085',
+    color: colors.body,
     fontSize: 14,
   },
   headerCreate: {
@@ -758,11 +743,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 13,
-    backgroundColor: '#5563dc',
+    backgroundColor: colors.accent,
     paddingHorizontal: 18,
   },
   createButtonText: {
-    color: '#ffffff',
+    color: colors.panel,
     fontSize: 14,
     fontWeight: '700',
   },
@@ -786,15 +771,15 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
   },
   scopeButtonActive: {
-    backgroundColor: '#eef0ff',
+    backgroundColor: colors.accentSoft,
   },
   scopeText: {
-    color: '#667085',
+    color: colors.body,
     fontSize: 12,
     fontWeight: '600',
   },
   scopeTextActive: {
-    color: '#4654c8',
+    color: colors.accent,
     fontWeight: '700',
   },
   searchBox: {
@@ -804,21 +789,21 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: '#e1e5ed',
+    borderColor: colors.line,
     borderRadius: 12,
-    backgroundColor: '#ffffff',
+    backgroundColor: colors.panel,
     paddingHorizontal: 12,
   },
   searchIcon: {
     marginRight: 8,
-    color: '#98a2b3',
+    color: colors.muted,
     fontSize: 22,
     lineHeight: 25,
   },
   searchInput: {
     flex: 1,
     paddingVertical: 8,
-    color: '#344054',
+    color: colors.body,
     fontSize: 13,
   },
   searchAction: {
@@ -826,13 +811,13 @@ const styles = StyleSheet.create({
     paddingVertical: 7,
   },
   searchActionText: {
-    color: '#4d5bd0',
+    color: colors.accent,
     fontSize: 12,
     fontWeight: '700',
   },
   boardCount: {
     marginLeft: 16,
-    color: '#98a2b3',
+    color: colors.muted,
     fontSize: 12,
   },
   boardRow: {
@@ -856,15 +841,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 19,
-    backgroundColor: '#eef0ff',
+    backgroundColor: colors.accentSoft,
   },
   emptyIconText: {
-    color: '#5563dc',
+    color: colors.accent,
     fontSize: 28,
   },
   emptyTitle: {
     marginTop: 18,
-    color: '#202b4a',
+    color: colors.ink,
     fontSize: 19,
     fontWeight: '700',
     textAlign: 'center',
@@ -872,7 +857,7 @@ const styles = StyleSheet.create({
   emptyDescription: {
     maxWidth: 330,
     marginTop: 8,
-    color: '#667085',
+    color: colors.body,
     fontSize: 14,
     lineHeight: 21,
     textAlign: 'center',
@@ -882,11 +867,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginTop: 20,
     borderRadius: 12,
-    backgroundColor: '#5563dc',
+    backgroundColor: colors.accent,
     paddingHorizontal: 17,
   },
   emptyButtonText: {
-    color: '#ffffff',
+    color: colors.panel,
     fontSize: 13,
     fontWeight: '700',
   },
@@ -896,7 +881,7 @@ const styles = StyleSheet.create({
   },
   loadingText: {
     marginTop: 12,
-    color: '#667085',
+    color: colors.body,
     fontSize: 13,
   },
   loadError: {
@@ -905,19 +890,19 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginBottom: 16,
     borderWidth: 1,
-    borderColor: '#fecdca',
+    borderColor: colors.errorBorder,
     borderRadius: 12,
-    backgroundColor: '#fff6f5',
+    backgroundColor: colors.errorBackground,
     padding: 14,
   },
   loadErrorText: {
     flex: 1,
-    color: '#b42318',
+    color: colors.danger,
     fontSize: 13,
   },
   retryText: {
     marginLeft: 12,
-    color: '#9f1c13',
+    color: colors.dangerDark,
     fontSize: 13,
     fontWeight: '700',
   },
@@ -928,23 +913,23 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     marginTop: 4,
     borderWidth: 1,
-    borderColor: '#d9def7',
+    borderColor: colors.lineStrong,
     borderRadius: 12,
     paddingHorizontal: 18,
   },
   loadMoreText: {
-    color: '#4d5bd0',
+    color: colors.accent,
     fontSize: 13,
     fontWeight: '700',
   },
   inlineError: {
     marginBottom: 12,
     borderRadius: 10,
-    backgroundColor: '#fff6f5',
+    backgroundColor: colors.errorBackground,
     padding: 12,
   },
   inlineErrorText: {
-    color: '#b42318',
+    color: colors.danger,
     fontSize: 13,
   },
 });
