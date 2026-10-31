@@ -2,6 +2,7 @@ import { router } from 'expo-router';
 import { useState } from 'react';
 import {
   ActivityIndicator,
+  Image,
   KeyboardAvoidingView,
   Platform,
   Pressable,
@@ -9,7 +10,6 @@ import {
   StyleSheet,
   Text,
   TextInput,
-  useWindowDimensions,
   View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -21,15 +21,12 @@ import { colors } from '@/theme/colors';
 
 export default function LoginScreen() {
   const { signIn, register } = useAuth();
-  const { width } = useWindowDimensions();
   const [isRegistering, setIsRegistering] = useState(false);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const isTabletLayout = width >= 760;
-
   const submit = async () => {
     const normalizedEmail = email.trim().toLowerCase();
     if (!normalizedEmail || !normalizedEmail.includes('@')) {
@@ -76,44 +73,49 @@ export default function LoginScreen() {
           contentContainerStyle={styles.scrollContent}
           keyboardShouldPersistTaps="handled"
         >
-          <View
-            style={[
-              styles.panel,
-              isTabletLayout && styles.panelTablet,
-              { maxWidth: isTabletLayout ? 1040 : 520 },
-            ]}
-          >
-            <View style={[styles.brandPanel, isTabletLayout && styles.brandPanelTablet]}>
-              <BrandMark size={42} />
-              <View>
-                <Text style={styles.brandName}>SketchFlow</Text>
-                <Text style={styles.brandEyebrow}>THINK IT THROUGH</Text>
-              </View>
-              <View style={styles.brandCopy}>
-                <Text style={styles.brandHeadline}>Make space for your best ideas.</Text>
-                <Text style={styles.brandDescription}>
-                  Plan, sketch, and shape ideas together on a canvas built for the
-                  big screen.
-                </Text>
-              </View>
-              <View style={styles.brandFooter}>
-                <View style={styles.brandDot} />
-                <Text style={styles.brandFooterText}>A little more room to think.</Text>
-              </View>
+          <View style={styles.panel}>
+            <View style={styles.brandHeader}>
+              <BrandMark size={34} />
+              <Text style={styles.brandName}>SketchFlow</Text>
             </View>
+            <Text style={styles.title}>
+              {isRegistering ? 'Create your account' : 'Welcome back to Sketchflow'}
+            </Text>
+            <Text style={styles.subtitle}>
+              Pick up where your team left off on the infinite canvas.
+            </Text>
 
-            <View style={styles.formPanel}>
-              <Text style={styles.formEyebrow}>
-                {isRegistering ? 'GET STARTED' : 'WELCOME BACK'}
-              </Text>
-              <Text style={styles.title}>
-                {isRegistering ? 'Create your account' : 'Sign in to your canvas'}
-              </Text>
-              <Text style={styles.subtitle}>
-                {isRegistering
-                  ? 'Pick up your ideas wherever you work.'
-                  : 'Your boards are ready when you are.'}
-              </Text>
+              <Pressable
+                accessibilityRole="button"
+                accessibilityState={{ disabled: true }}
+                disabled
+                style={styles.googleButton}
+              >
+                <Image
+                  accessibilityIgnoresInvertColors
+                  source={require('../../assets/google-mark.png')}
+                  style={styles.googleMark}
+                />
+                <Text style={styles.googleButtonText}>Continue with Google</Text>
+              </Pressable>
+              <Pressable
+                accessibilityRole="button"
+                accessibilityState={{ disabled: true }}
+                disabled
+                style={[styles.googleButton, styles.githubButton]}
+              >
+                <Image
+                  accessibilityIgnoresInvertColors
+                  source={require('../../assets/github-mark.png')}
+                  style={styles.googleMark}
+                />
+                <Text style={styles.googleButtonText}>Continue with GitHub</Text>
+              </Pressable>
+              <View style={styles.dividerRow}>
+                <View style={styles.divider} />
+                <Text style={styles.dividerText}>OR CONTINUE WITH WORK EMAIL</Text>
+                <View style={styles.divider} />
+              </View>
 
               {isRegistering ? (
                 <View style={styles.fieldGroup}>
@@ -133,14 +135,14 @@ export default function LoginScreen() {
               ) : null}
 
               <View style={styles.fieldGroup}>
-                <Text style={styles.label}>Email</Text>
+                <Text style={styles.label}>Work email address</Text>
                 <TextInput
                   accessibilityLabel="Email"
                   autoCapitalize="none"
                   autoComplete="email"
                   keyboardType="email-address"
                   onChangeText={setEmail}
-                  placeholder="you@example.com"
+                  placeholder="alex@company.com"
                   placeholderTextColor={colors.muted}
                   returnKeyType="next"
                   style={styles.input}
@@ -156,7 +158,7 @@ export default function LoginScreen() {
                   autoComplete={isRegistering ? 'new-password' : 'current-password'}
                   onChangeText={setPassword}
                   onSubmitEditing={() => void submit()}
-                  placeholder="At least 8 characters"
+                  placeholder="Enter your password"
                   placeholderTextColor={colors.muted}
                   returnKeyType="go"
                   secureTextEntry
@@ -183,17 +185,17 @@ export default function LoginScreen() {
                 ]}
               >
                 {isSubmitting ? (
-                  <ActivityIndicator color={colors.panel} />
+                  <ActivityIndicator color={colors.primaryInk} />
                 ) : (
                   <Text style={styles.submitButtonText}>
-                    {isRegistering ? 'Create account' : 'Sign in'}
+                    {isRegistering ? 'Create account' : 'Sign In to Workspace'}
                   </Text>
                 )}
               </Pressable>
 
               <View style={styles.switchRow}>
                 <Text style={styles.switchText}>
-                  {isRegistering ? 'Already have an account?' : 'New to SketchFlow?'}
+                  {isRegistering ? 'Already have an account?' : 'New here?'}
                 </Text>
                 <Pressable
                   accessibilityRole="button"
@@ -203,13 +205,14 @@ export default function LoginScreen() {
                   }}
                 >
                   <Text style={styles.switchAction}>
-                    {isRegistering ? 'Sign in' : 'Create account'}
+                    {isRegistering ? 'Sign in' : 'Sign up for free'}
                   </Text>
                 </Pressable>
               </View>
-            </View>
           </View>
-          <Text style={styles.legal}>By continuing, you agree to use SketchFlow responsibly.</Text>
+          <Text style={styles.legal}>
+            Password recovery is not available in the mobile app yet.
+          </Text>
         </ScrollView>
       </KeyboardAvoidingView>
     </SafeAreaView>
@@ -233,117 +236,103 @@ const styles = StyleSheet.create({
   },
   panel: {
     width: '100%',
+    maxWidth: 560,
     overflow: 'hidden',
-    borderRadius: 28,
+    borderRadius: 16,
     backgroundColor: colors.panel,
     shadowColor: colors.shadow,
-    shadowOffset: { width: 0, height: 20 },
-    shadowOpacity: 0.1,
-    shadowRadius: 36,
-    elevation: 8,
+    shadowOffset: { width: 0, height: 12 },
+    shadowOpacity: 0.09,
+    shadowRadius: 28,
+    elevation: 5,
+    paddingHorizontal: 32,
+    paddingVertical: 32,
   },
-  panelTablet: {
+  brandHeader: {
     flexDirection: 'row',
-  },
-  brandPanel: {
-    minHeight: 230,
-    justifyContent: 'space-between',
-    backgroundColor: colors.deepTeal,
-    padding: 28,
-  },
-  brandPanelTablet: {
-    width: '42%',
-    minHeight: 580,
-    padding: 36,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 20,
   },
   brandName: {
-    marginTop: 14,
-    color: colors.panel,
+    marginLeft: 8,
+    color: colors.ink,
     fontSize: 18,
     fontWeight: '700',
   },
-  brandEyebrow: {
-    marginTop: 4,
-    color: colors.deepTealText,
-    fontSize: 10,
-    fontWeight: '700',
-    letterSpacing: 1.8,
-  },
-  brandCopy: {
-    marginTop: 28,
-  },
-  brandHeadline: {
-    maxWidth: 340,
-    color: colors.panel,
-    fontSize: 30,
-    fontWeight: '700',
-    letterSpacing: -0.8,
-    lineHeight: 36,
-  },
-  brandDescription: {
-    maxWidth: 340,
-    marginTop: 14,
-    color: colors.deepTealText,
-    fontSize: 15,
-    lineHeight: 23,
-  },
-  brandFooter: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: 24,
-  },
-  brandDot: {
-    width: 8,
-    height: 8,
-    borderRadius: 4,
-    backgroundColor: colors.highlight,
-  },
-  brandFooterText: {
-    marginLeft: 9,
-    color: colors.deepTealText,
-    fontSize: 13,
-  },
-  formPanel: {
-    paddingHorizontal: 28,
-    paddingVertical: 36,
-  },
-  formEyebrow: {
-    color: colors.accentStrong,
-    fontSize: 11,
-    fontWeight: '800',
-    letterSpacing: 1.8,
-  },
   title: {
-    marginTop: 10,
     color: colors.ink,
-    fontSize: 28,
+    fontSize: 24,
     fontWeight: '700',
-    letterSpacing: -0.8,
+    textAlign: 'center',
   },
   subtitle: {
-    marginTop: 8,
-    color: colors.body,
-    fontSize: 15,
-    lineHeight: 22,
-  },
-  fieldGroup: {
-    marginTop: 22,
-  },
-  label: {
-    marginBottom: 8,
+    marginTop: 7,
     color: colors.body,
     fontSize: 13,
-    fontWeight: '700',
+    lineHeight: 20,
+    textAlign: 'center',
+  },
+  googleButton: {
+    minHeight: 44,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 24,
+    borderWidth: 1,
+    borderColor: colors.line,
+    borderRadius: 8,
+    backgroundColor: colors.subtle,
+  },
+  googleMark: {
+    width: 18,
+    height: 18,
+    marginRight: 8,
+  },
+  googleButtonText: {
+    color: colors.ink,
+    fontSize: 13,
+    fontWeight: '600',
+  },
+  githubButton: {
+    marginTop: 8,
+  },
+  dividerRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 22,
+    marginBottom: 4,
+  },
+  divider: {
+    flex: 1,
+    height: 1,
+    backgroundColor: colors.line,
+  },
+  dividerText: {
+    marginHorizontal: 10,
+    color: colors.muted,
+    fontSize: 9,
+    fontWeight: '600',
+    letterSpacing: 0.8,
+  },
+  fieldGroup: {
+    marginTop: 18,
+  },
+  label: {
+    marginBottom: 7,
+    color: colors.ink,
+    fontSize: 12,
+    fontWeight: '600',
   },
   input: {
-    minHeight: 52,
+    minHeight: 46,
     borderWidth: 1,
-    borderColor: colors.lineStrong,
-    borderRadius: 13,
+    borderColor: colors.line,
+    borderRadius: 8,
     backgroundColor: colors.panel,
-    paddingHorizontal: 15,
+    paddingHorizontal: 12,
     color: colors.ink,
-    fontSize: 15,
+    fontSize: 13,
   },
   errorBox: {
     marginTop: 18,
@@ -359,22 +348,22 @@ const styles = StyleSheet.create({
     lineHeight: 20,
   },
   submitButton: {
-    minHeight: 54,
+    minHeight: 48,
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 26,
-    borderRadius: 14,
-    backgroundColor: colors.accent,
+    marginTop: 22,
+    borderRadius: 8,
+    backgroundColor: colors.primary,
   },
   submitButtonPressed: {
-    backgroundColor: colors.accentHover,
+    backgroundColor: colors.primaryHover,
   },
   submitButtonDisabled: {
     opacity: 0.7,
   },
   submitButtonText: {
-    color: colors.panel,
-    fontSize: 15,
+    color: colors.primaryInk,
+    fontSize: 13,
     fontWeight: '700',
   },
   switchRow: {
@@ -382,7 +371,7 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 22,
+    marginTop: 18,
   },
   switchText: {
     color: colors.body,
@@ -395,7 +384,7 @@ const styles = StyleSheet.create({
     fontWeight: '700',
   },
   legal: {
-    marginTop: 18,
+    marginTop: 16,
     color: colors.muted,
     fontSize: 12,
     textAlign: 'center',

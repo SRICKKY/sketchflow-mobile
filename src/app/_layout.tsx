@@ -23,7 +23,7 @@ function RootNavigator() {
   if (status === 'loading') {
     return (
       <View style={styles.stateScreen}>
-        <ActivityIndicator color={colors.accent} size="large" />
+        <ActivityIndicator color={colors.primary} size="large" />
         <Text style={styles.stateText}>Connecting to SketchFlow…</Text>
       </View>
     );
@@ -49,14 +49,14 @@ function RootNavigator() {
         guard={status === 'unauthenticated'}
         redirectTo="/"
       >
-        <Stack.Screen name="login" />
+        <Stack.Screen name="login" options={{ headerShown: false }} />
       </Stack.Protected>
       <Stack.Protected
         guard={status === 'authenticated'}
         redirectTo="/login"
       >
-        <Stack.Screen name="index" />
-        <Stack.Screen name="boards/[id]" />
+        <Stack.Screen name="index" options={{ headerShown: false }} />
+        <Stack.Screen name="boards/[id]" options={{ headerShown: false }} />
       </Stack.Protected>
     </Stack>
   );
@@ -85,12 +85,12 @@ const styles = StyleSheet.create({
   retryButton: {
     marginTop: 24,
     borderRadius: 12,
-    backgroundColor: colors.accent,
+    backgroundColor: colors.primary,
     paddingHorizontal: 24,
     paddingVertical: 14,
   },
   retryText: {
-    color: colors.panel,
+    color: colors.primaryInk,
     fontSize: 15,
     fontWeight: '700',
   },

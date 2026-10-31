@@ -16,6 +16,7 @@ export const colors = {
   accentSoft: '#d9faf4',
   accentPale: '#e6fffb',
   primary: '#2dd4bf',
+  primaryHover: '#14b8a6',
   primaryInk: '#042f2e',
   highlight: '#9cf2e8',
   deepTeal: '#134e4a',

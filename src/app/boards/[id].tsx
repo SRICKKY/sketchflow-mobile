@@ -239,7 +239,7 @@ export default function BoardEditorScreen() {
           ]}
         >
           {isSaving ? (
-            <ActivityIndicator color={colors.panel} size="small" />
+            <ActivityIndicator color={colors.primaryInk} size="small" />
           ) : (
             <Text style={styles.saveButtonText}>
               {pendingElements.length ? 'Save changes' : 'Saved'}
@@ -250,7 +250,7 @@ export default function BoardEditorScreen() {
 
       {isLoading ? (
         <View style={styles.state}>
-          <ActivityIndicator color={colors.accent} size="large" />
+          <ActivityIndicator color={colors.primary} size="large" />
           <Text style={styles.stateText}>Opening your canvas…</Text>
         </View>
       ) : error && !board ? (
@@ -470,11 +470,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginLeft: 12,
     borderRadius: 12,
-    backgroundColor: colors.accent,
+    backgroundColor: colors.primary,
     paddingHorizontal: 14,
   },
   saveButtonText: {
-    color: colors.panel,
+    color: colors.primaryInk,
     fontSize: 13,
     fontWeight: '700',
   },
@@ -500,12 +500,12 @@ const styles = StyleSheet.create({
   retryButton: {
     marginTop: 16,
     borderRadius: 10,
-    backgroundColor: colors.accent,
+    backgroundColor: colors.primary,
     paddingHorizontal: 18,
     paddingVertical: 12,
   },
   retryText: {
-    color: colors.panel,
+    color: colors.primaryInk,
     fontSize: 14,
     fontWeight: '700',
   },

@@ -330,10 +330,10 @@ export default function DashboardScreen() {
             contentContainerStyle={styles.listContent}
             refreshControl={
               <RefreshControl
-                colors={[colors.accent]}
+                colors={[colors.primary]}
                 onRefresh={() => void refresh()}
                 refreshing={isRefreshing}
-                tintColor={colors.accent}
+                tintColor={colors.primary}
               />
             }
           >
@@ -418,7 +418,7 @@ export default function DashboardScreen() {
             ) : null}
             {isLoading && boards.length === 0 ? (
               <View style={styles.loading}>
-                <ActivityIndicator color={colors.accent} size="large" />
+                <ActivityIndicator color={colors.primary} size="large" />
                 <Text style={styles.loadingText}>Loading your boards…</Text>
               </View>
             ) : null}
@@ -504,7 +504,7 @@ export default function DashboardScreen() {
                 style={styles.loadMoreButton}
               >
                 {isLoadingMore ? (
-                  <ActivityIndicator color={colors.accent} />
+                  <ActivityIndicator color={colors.primary} />
                 ) : (
                   <Text style={styles.loadMoreText}>Load more boards</Text>
                 )}
@@ -616,11 +616,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginBottom: 20,
     borderRadius: 12,
-    backgroundColor: colors.ink,
+    backgroundColor: colors.primary,
     paddingHorizontal: 14,
   },
   sidebarCreateText: {
-    color: colors.panel,
+    color: colors.primaryInk,
     fontSize: 14,
     fontWeight: '700',
   },
@@ -743,11 +743,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 13,
-    backgroundColor: colors.accent,
+    backgroundColor: colors.primary,
     paddingHorizontal: 18,
   },
   createButtonText: {
-    color: colors.panel,
+    color: colors.primaryInk,
     fontSize: 14,
     fontWeight: '700',
   },
@@ -867,11 +867,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginTop: 20,
     borderRadius: 12,
-    backgroundColor: colors.accent,
+    backgroundColor: colors.primary,
     paddingHorizontal: 17,
   },
   emptyButtonText: {
-    color: colors.panel,
+    color: colors.primaryInk,
     fontSize: 13,
     fontWeight: '700',
   },

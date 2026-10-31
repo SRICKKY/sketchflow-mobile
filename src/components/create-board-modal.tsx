@@ -115,7 +115,7 @@ export function CreateBoardModal({
               style={[styles.createButton, isSaving && styles.disabled]}
             >
               {isSaving ? (
-                <ActivityIndicator color={colors.panel} />
+                <ActivityIndicator color={colors.primaryInk} />
               ) : (
                 <Text style={styles.createText}>Create board</Text>
               )}
@@ -244,14 +244,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginLeft: 8,
     borderRadius: 12,
-    backgroundColor: colors.accent,
+    backgroundColor: colors.primary,
     paddingHorizontal: 17,
   },
   disabled: {
     opacity: 0.7,
   },
   createText: {
-    color: colors.panel,
+    color: colors.primaryInk,
     fontSize: 14,
     fontWeight: '700',
   },
